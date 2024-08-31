@@ -1,0 +1,4 @@
+echo "🚓 Wait, let me quickly check your commit..."
+
+echo "Running Lint-Staged..."
+npx lint-staged

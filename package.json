@@ -5,14 +5,47 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "format": "prettier --write \"./src/**/*.json\" \"./**/*.{html,js,ts,vue,css,md}\" \"./*.json\"",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint . --fix",
+    "prepare": "husky && pnpm prepare:permissions",
+    "prepare:permissions": "chmod ug+x .husky/*",
+    "preview": "nuxt preview"
+  },
+  "lint-staged": {
+    "*.{html,js,ts,vue,css,md}": "prettier --write",
+    "*.{js,ts,vue}": "eslint --fix",
+    "src/**/*.json": "prettier --write"
   },
   "dependencies": {
+    "@nuxt/eslint": "^0.5.4",
     "@nuxtjs/tailwindcss": "^6.12.1",
+    "globals": "^15.9.0",
     "nuxt": "^3.13.0",
     "vue": "latest"
   },
-  "packageManager": "pnpm@9.9.0+sha512.60c18acd138bff695d339be6ad13f7e936eea6745660d4cc4a776d5247c540d0edee1a563695c183a66eb917ef88f2b4feb1fc25f32a7adcadc7aaf3438e99c1"
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "@types/eslint__js": "^8.42.3",
+    "eslint": "^9.9.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.3",
+    "eslint-plugin-import-x": "^4.1.1",
+    "eslint-plugin-no-relative-import-paths": "^1.5.5",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-vue": "^9.27.0",
+    "eslint-plugin-vuejs-accessibility": "^2.4.1",
+    "husky": "^9.1.5",
+    "lint-staged": "^15.2.9",
+    "prettier": "^3.3.3",
+    "prettier-plugin-organize-imports": "^4.0.0",
+    "prettier-plugin-tailwindcss": "^0.6.6",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.3.0"
+  },
+  "packageManager": "pnpm@9.9.0",
+  "engines": {
+    "node": "20"
+  }
 }
