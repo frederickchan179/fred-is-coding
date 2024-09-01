@@ -3,7 +3,9 @@
     "codeee",
     "nuxt",
     "nuxtjs",
+    "pinia",
     "tailwindcss",
-    "vuejs"
+    "vuejs",
+    "vueuse"
   ]
 }

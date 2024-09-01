@@ -21,12 +21,17 @@
   "dependencies": {
     "@nuxt/eslint": "^0.5.4",
     "@nuxtjs/tailwindcss": "^6.12.1",
+    "@pinia/nuxt": "^0.5.4",
+    "@vueuse/core": "^11.0.3",
+    "@vueuse/nuxt": "^11.0.3",
     "globals": "^15.9.0",
     "nuxt": "^3.13.0",
+    "pinia": "^2.2.2",
     "vue": "latest"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
+    "@nuxtjs/color-mode": "^3.4.4",
     "@types/eslint__js": "^8.42.3",
     "eslint": "^9.9.1",
     "eslint-config-prettier": "^9.1.0",
@@ -41,6 +46,7 @@
     "prettier": "^3.3.3",
     "prettier-plugin-organize-imports": "^4.0.0",
     "prettier-plugin-tailwindcss": "^0.6.6",
+    "tailwindcss": "^3.4.10",
     "tailwindcss-base-font-size": "^1.0.1",
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.3.0"
