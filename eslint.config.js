@@ -60,6 +60,7 @@ export default withNuxt(
   ...eslintVueA11y.configs['flat/recommended'],
   {
     rules: {
+      'vue/multi-word-component-names': 'warn',
       'vue/component-tags-order': [
         'error',
         {
