@@ -1,8 +1,12 @@
+// @ts-check
 import eslint from '@eslint/js'
+// @ts-expect-error - no declaration types file
 import eslintConfigPrettier from 'eslint-config-prettier'
 import eslintImportX from 'eslint-plugin-import-x'
+// @ts-expect-error - no declaration types file
 import eslintNoRelativeImportPaths from 'eslint-plugin-no-relative-import-paths'
 import eslintPrettierRecommended from 'eslint-plugin-prettier/recommended'
+// @ts-expect-error - no declaration types file
 import eslintVue from 'eslint-plugin-vue'
 import eslintVueA11y from 'eslint-plugin-vuejs-accessibility'
 import globals from 'globals'
@@ -32,6 +36,7 @@ export default withNuxt(
   eslint.configs.recommended,
 
   // For TypeScript
+  // @ts-expect-error - small type mismatch
   ...tsEslint.configs.recommended,
   {
     languageOptions: {
@@ -51,11 +56,6 @@ export default withNuxt(
   },
 
   // For Vue
-
-  // eslint-plugin-vue languageOptions.sourceType is string
-  // which is not compatible with typescript-eslint defined SourceType,
-  // but it's ok so we ignore it as below
-  // @ts-expect-error - eslint-plugin-vue languageOptions
   ...eslintVue.configs['flat/recommended'],
   ...eslintVueA11y.configs['flat/recommended'],
   {
