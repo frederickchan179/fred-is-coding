@@ -69,6 +69,9 @@ importers:
       prettier-plugin-tailwindcss:
         specifier: ^0.6.6
         version: 0.6.6(prettier-plugin-organize-imports@4.0.0(prettier@3.3.3)(typescript@5.5.4))(prettier@3.3.3)
+      tailwindcss-base-font-size:
+        specifier: ^1.0.1
+        version: 1.0.1(tailwindcss@3.4.10)
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
@@ -3970,6 +3973,11 @@ packages:
     hasBin: true
     peerDependencies:
       tailwindcss: 1 || 2 || 2.0.1-compat || 3
+
+  tailwindcss-base-font-size@1.0.1:
+    resolution: {integrity: sha512-elrT3W0hM3l08cFl1p0g4hOLlXlSjXCCFeBfTMsWV+LRLOLZ0v7ILQPGg5q7hDGK45YB7E10UWkfyl0SazjWmg==}
+    peerDependencies:
+      tailwindcss: '>=3.3.2'
 
   tailwindcss@3.4.10:
     resolution: {integrity: sha512-KWZkVPm7yJRhdu4SRSl9d4AK2wM3a50UsvgHZO7xY77NQr2V+fIrEuoDGQcbvswWvFGbS2f6e+jC/6WJm1Dl0w==}
@@ -8697,6 +8705,10 @@ snapshots:
       tailwindcss: 3.4.10
     transitivePeerDependencies:
       - supports-color
+
+  tailwindcss-base-font-size@1.0.1(tailwindcss@3.4.10):
+    dependencies:
+      tailwindcss: 3.4.10
 
   tailwindcss@3.4.10:
     dependencies:
