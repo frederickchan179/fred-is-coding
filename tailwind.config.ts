@@ -2,7 +2,15 @@ import type { Config } from 'tailwindcss'
 import tailwindBaseFontSize from 'tailwindcss-base-font-size'
 
 export default {
-  content: ['**/*.html', 'src/**/*.{js,ts,vue}'],
+  content: [
+    './components/**/*.{vue,js,ts}',
+    './layouts/**/*.vue',
+    './pages/**/*.vue',
+    './composables/**/*.{js,ts}',
+    './plugins/**/*.{js,ts}',
+    './app.{js,ts,vue}',
+    './error.{js,ts,vue}'
+  ],
   theme: {
     extend: {
       screens: {
