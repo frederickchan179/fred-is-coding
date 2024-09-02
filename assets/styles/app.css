@@ -1,0 +1,3 @@
+.app-root {
+  @apply flex min-h-screen w-screen flex-col;
+}
