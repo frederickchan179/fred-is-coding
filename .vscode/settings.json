@@ -1,4 +1,17 @@
 {
+  // Define some useful editor settings
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "never",
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+
+  // Custom unknown words
   "cSpell.words": [
     "codeee",
     "composables",
@@ -10,5 +23,23 @@
     "tanstack",
     "vuejs",
     "vueuse"
-  ]
+  ],
+
+
+  // Use Workspace TypeScript version
+  "typescript.tsdk": "node_modules/typescript/lib",
+
+  // Help VS Code know that .css is actually a tailwindcss file in disguise
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+
+  // Set base font size for Tailwind intellisense
+  "tailwindCSS.rootFontSize": 16,
+
+  // Enable Emmet for Tailwind CSS
+  "tailwindCSS.emmetCompletions": true,
+
+  // Enable Vue Official extension hybird mode by default
+  "vue.server.hybridMode": true
 }
