@@ -5,7 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "format": "prettier --write \"./src/**/*.json\" \"./**/*.{html,js,ts,vue,css,md}\" \"./*.json\"",
+    "format": "prettier --write \"./**/*.{html,js,ts,vue,css,md,json}\"",
     "generate": "nuxt generate",
     "postinstall": "nuxt prepare",
     "lint": "eslint . --fix",
