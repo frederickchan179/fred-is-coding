@@ -19,6 +19,7 @@
     "nuxt",
     "nuxtjs",
     "pinia",
+    "postcss",
     "tailwindcss",
     "tanstack",
     "vuejs",
