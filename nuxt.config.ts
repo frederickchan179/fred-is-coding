@@ -22,8 +22,16 @@ export default defineNuxtConfig({
     'dayjs-nuxt',
     'nuxt-typed-router',
     '@scalar/nuxt',
-    '@nuxtjs/google-fonts'
+    '@nuxtjs/google-fonts',
+    '@hebilicious/vue-query-nuxt'
   ],
+  imports: {
+    dirs: ['~/stores']
+  },
+  css: ['~/assets/styles/app.css'],
+  pinia: {
+    storesDirs: ['~/stores/**']
+  },
   colorMode: {
     classSuffix: ''
   },
@@ -33,5 +41,10 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
     defaultTimezone: 'America/New_York'
   },
-  googleFonts: {}
+  googleFonts: {
+    display: 'swap',
+    families: {
+      Manrope: [800]
+    }
+  }
 })
