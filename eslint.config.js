@@ -1,16 +1,14 @@
 // @ts-check
-import eslint from '@eslint/js'
-// @ts-expect-error - no declaration types file
+// @ts-ignore - no declaration types file
 import eslintConfigPrettier from 'eslint-config-prettier'
 import eslintImportX from 'eslint-plugin-import-x'
-// @ts-expect-error - no declaration types file
+// @ts-ignore - no declaration types file
 import eslintNoRelativeImportPaths from 'eslint-plugin-no-relative-import-paths'
 import eslintPrettierRecommended from 'eslint-plugin-prettier/recommended'
-// @ts-expect-error - no declaration types file
+// @ts-ignore - no declaration types file
 import eslintVue from 'eslint-plugin-vue'
 import eslintVueA11y from 'eslint-plugin-vuejs-accessibility'
 import globals from 'globals'
-import tsEslint from 'typescript-eslint'
 import withNuxt from './.nuxt/eslint.config.mjs'
 
 export default withNuxt(
@@ -32,22 +30,8 @@ export default withNuxt(
     ignores: ['node_modules', '.nuxt']
   },
 
-  // For JavaScript
-  eslint.configs.recommended,
-
   // For TypeScript
-  // @ts-expect-error - small type mismatch
-  ...tsEslint.configs.recommended,
   {
-    languageOptions: {
-      parserOptions: {
-        parser: tsEslint.parser,
-        projectService: {
-          defaultProject: 'tsconfig.json'
-        },
-        extraFileExtensions: ['.vue']
-      }
-    },
     rules: {
       '@typescript-eslint/no-unused-expressions': 'warn',
       '@typescript-eslint/no-empty-object-type': 'warn',
@@ -71,6 +55,7 @@ export default withNuxt(
   },
 
   // For Imports
+  // @ts-ignore - small mismatch between types of eslint and eslint-plugin-import-x
   {
     plugins: {
       'import-x': eslintImportX
