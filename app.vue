@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import '~/assets/styles/app.css'
+import { VueQueryDevtools } from '@tanstack/vue-query-devtools'
 
 const { title } = useAppConfig()
 
@@ -15,5 +15,6 @@ useHead({
     <NuxtLayout>
       <NuxtPage class="flex-1" />
     </NuxtLayout>
+    <VueQueryDevtools />
   </Body>
 </template>
