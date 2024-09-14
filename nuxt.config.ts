@@ -23,12 +23,21 @@ export default defineNuxtConfig({
     'nuxt-typed-router',
     '@scalar/nuxt',
     '@nuxtjs/google-fonts',
-    '@hebilicious/vue-query-nuxt'
+    '@hebilicious/vue-query-nuxt',
+    'nuxt-lodash',
+    '@morev/vue-transitions/nuxt',
+    'floating-vue/nuxt',
+    'nuxt-snackbar'
   ],
   imports: {
     dirs: ['~/stores']
   },
   css: ['~/assets/styles/app.css'],
+  runtimeConfig: {
+    public: {
+      githubApiToken: ''
+    }
+  },
   pinia: {
     storesDirs: ['~/stores/**']
   },
@@ -44,7 +53,13 @@ export default defineNuxtConfig({
   googleFonts: {
     display: 'swap',
     families: {
-      Manrope: [800]
+      Manrope: [800],
+      'Space Mono': [400, 700]
     }
+  },
+  snackbar: {
+    bottom: true,
+    right: true,
+    duration: 5000
   }
 })

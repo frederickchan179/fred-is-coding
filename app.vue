@@ -14,6 +14,7 @@ useHead({
     <NuxtLoadingIndicator />
     <NuxtLayout>
       <NuxtPage class="flex-1" />
+      <NuxtSnackbar />
     </NuxtLayout>
     <VueQueryDevtools />
   </Body>
