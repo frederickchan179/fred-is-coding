@@ -79,8 +79,7 @@ const isShowingUser = computed(() => user.value?.type === 'User')
 const snackbar = useSnackbar()
 
 watch(isFetched, (val) => {
-  if (!val || isShowingUser.value) return
-  if (!error.value) return
+  if (!val || isShowingUser.value || (!error.value && isShowingUser.value)) return
 
   snackbar.add({
     text: 'User not found.',
