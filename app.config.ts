@@ -1,5 +1,5 @@
 const appConfig = {
-  title: 'Freddie Codeee'
+  title: 'Fred Is Coding'
 } as const
 
 export default defineAppConfig(appConfig)
