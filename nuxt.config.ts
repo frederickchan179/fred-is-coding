@@ -30,16 +30,16 @@ export default defineNuxtConfig({
     'nuxt-snackbar'
   ],
   imports: {
-    dirs: ['~/stores']
+    dirs: ['./stores']
   },
-  css: ['~/assets/styles/app.css'],
+  css: ['./assets/styles/app.css'],
   runtimeConfig: {
     public: {
       githubApiToken: ''
     }
   },
   pinia: {
-    storesDirs: ['~/stores/**']
+    storesDirs: ['./stores/**']
   },
   colorMode: {
     classSuffix: ''
@@ -54,7 +54,8 @@ export default defineNuxtConfig({
     display: 'swap',
     families: {
       Manrope: [800],
-      'Space Mono': [400, 700]
+      'Space Mono': [400, 700],
+      Lato: [400, 700]
     }
   },
   snackbar: {
