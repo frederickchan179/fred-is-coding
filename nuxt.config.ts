@@ -55,7 +55,7 @@ export default defineNuxtConfig({
     families: {
       Manrope: [800],
       'Space Mono': [400, 700],
-      Lato: [400, 700]
+      Ubuntu: [400, 500, 700]
     }
   },
   snackbar: {
