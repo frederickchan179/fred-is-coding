@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia'
 
-type GameState = 'home' | 'playing' | 'paused' | 'end'
-type PlayerMark = 'X' | 'O'
-type Board = (PlayerMark | null)[][]
-type Cell = { row: number; col: number }
+export type GameState = 'home' | 'playing' | 'paused' | 'end'
+export type PlayMode = 'vs-ai' | 'vs-player'
+export type PlayerMark = 'X' | 'O'
+export type Board = (PlayerMark | null)[][]
+export type Cell = { row: number; col: number }
 
 const DEFAULT_WINNING_CONSECUTIVE = 3
 const DEFAULT_ROUND_RESULTS = {
@@ -18,32 +19,14 @@ export const useMyGameTicTacToeStore = defineStore('gameTicTacToe', () => {
   function setGameState(state: GameState) {
     gameState.value = state
 
-    if (state === 'home') {
-      resetBoard()
-      setCurrentPlayer('X')
-      setPlayingWithAI(false)
-      resetRounds()
-    }
+    if (state === 'home' || state === 'playing') resetGame()
   }
 
-  const boardSize = ref(3)
+  const playMode = ref<PlayMode | null>(null)
 
-  function setBoardSize(size: number) {
-    boardSize.value = size
+  function setPlayMode(mode: PlayMode | null) {
+    playMode.value = mode
   }
-
-  const board = ref(generateBoard(boardSize.value, boardSize.value))
-
-  function clearBoard() {
-    board.value = generateBoard(boardSize.value, boardSize.value)
-  }
-
-  function resetBoard() {
-    setBoardSize(3)
-    clearBoard()
-  }
-
-  const winningConsecutive = computed(() => Math.min(boardSize.value, DEFAULT_WINNING_CONSECUTIVE))
 
   const currentPlayer = ref<PlayerMark>('X')
 
@@ -54,27 +37,27 @@ export const useMyGameTicTacToeStore = defineStore('gameTicTacToe', () => {
   const isCurrentPlayerX = computed(() => currentPlayer.value === 'X')
   const isCurrentPlayerO = computed(() => currentPlayer.value === 'O')
 
-  const isPlayingWithAI = ref(false)
+  const boardSize = ref(3)
+  const board = ref(generateBoard(boardSize.value, boardSize.value))
+  const winningConsecutive = computed(() => Math.min(boardSize.value, DEFAULT_WINNING_CONSECUTIVE))
 
-  function setPlayingWithAI(value: boolean) {
-    isPlayingWithAI.value = value
+  function setBoardSize(size: number) {
+    boardSize.value = size
+  }
+
+  function clearBoard() {
+    board.value = generateBoard(boardSize.value, boardSize.value)
   }
 
   const currentTurn = ref<PlayerMark>('X')
+  const isCurrentPlayerTurn = computed(() => currentPlayer.value === currentTurn.value)
 
   function switchTurn() {
     currentTurn.value = currentTurn.value === 'X' ? 'O' : 'X'
   }
 
-  const isCurrentPlayerTurn = computed(() => currentPlayer.value === currentTurn.value)
-
   const roundWinner = ref<PlayerMark | null>(null)
   const roundResults = ref(DEFAULT_ROUND_RESULTS)
-
-  function resetRounds() {
-    roundWinner.value = null
-    roundResults.value = DEFAULT_ROUND_RESULTS
-  }
 
   function makeMove(mark: PlayerMark, cell: Cell) {
     if (board.value[cell.row][cell.col]) return
@@ -103,28 +86,37 @@ export const useMyGameTicTacToeStore = defineStore('gameTicTacToe', () => {
     switchTurn()
   }
 
+  function resetGame() {
+    setPlayMode(null)
+    setBoardSize(3)
+    clearBoard()
+    setCurrentPlayer('X')
+
+    roundWinner.value = null
+    roundResults.value = DEFAULT_ROUND_RESULTS
+  }
+
   return {
     gameState,
     setGameState,
-    boardSize,
-    setBoardSize,
-    board,
-    clearBoard,
-    resetBoard,
-    winningConsecutive,
+    playMode,
+    setPlayMode,
     currentPlayer,
     setCurrentPlayer,
     isCurrentPlayerX,
     isCurrentPlayerO,
-    isPlayingWithAI,
-    setPlayingWithAI,
+    boardSize,
+    setBoardSize,
+    board,
+    clearBoard,
+    winningConsecutive,
     currentTurn,
     switchTurn,
     isCurrentPlayerTurn,
     roundWinner,
     roundResults,
-    resetRounds,
-    makeMove
+    makeMove,
+    resetGame
   }
 })
 
