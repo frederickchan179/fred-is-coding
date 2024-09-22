@@ -17,14 +17,12 @@ const footerInfos = computed(() => {
     {
       label: `X ${xIdentity}`,
       value: xWins,
-      isCurrentTurn: currentTurn.value === 'X',
       bgClass: 'bg-[var(--color-primary)]'
     },
     { label: 'Ties', value: ties, bgClass: 'bg-[var(--color-neutral)]' },
     {
       label: `O ${oIdentity}`,
       value: oWins,
-      isCurrentTurn: currentTurn.value === 'O',
       bgClass: 'bg-[var(--color-secondary)]'
     }
   ]
@@ -35,10 +33,20 @@ const footerInfos = computed(() => {
   <div class="flex max-h-screen w-screen flex-col items-center justify-center">
     <h1 class="sr-only">Tic-Tac-Toe - In Game Screen</h1>
 
-    <div class="flex w-full max-w-[30rem] items-center justify-between gap-3 p-4">
+    <div class="relative flex w-full max-w-[30rem] items-center justify-between gap-3 p-4">
       <NuxtLink to="/games/tic-tac-toe">
         <GamesTicTacToeIconGameLogo />
       </NuxtLink>
+
+      <GamesTicTacToeShadow3dBox
+        :brightness="0.7"
+        small
+        class="!absolute left-1/2 top-1/2 flex w-[calc((100%-4rem)/3)] -translate-x-1/2 -translate-y-1/2 items-center justify-center gap-2 rounded-lg bg-[var(--color-cell-bg)] p-2 text-[var(--color-neutral)]"
+      >
+        <GamesTicTacToeIconMarkX v-if="currentTurn === 'X'" class="!h-4 !w-4" />
+        <GamesTicTacToeIconMarkO v-else-if="currentTurn === 'O'" class="!h-4 !w-4" />
+        <span class="uppercase">Turn</span>
+      </GamesTicTacToeShadow3dBox>
 
       <GamesTicTacToeShadow3dBox
         interactive
@@ -60,12 +68,7 @@ const footerInfos = computed(() => {
         v-for="info in footerInfos"
         :key="info.label"
         class="flex w-full flex-col rounded-xl p-3"
-        :class="[
-          {
-            'is-current-turn': info.isCurrentTurn
-          },
-          info.bgClass
-        ]"
+        :class="info.bgClass"
       >
         <span class="text-sm uppercase">{{ info.label }}</span>
         <span class="text-2xl font-bold">{{ info.value }}</span>
