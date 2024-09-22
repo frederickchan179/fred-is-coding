@@ -2,17 +2,12 @@
 const { title } = useAppConfig()
 
 useHead({
-  title,
   titleTemplate: `%s - Tic-Tac-Toe - ${title}`
 })
 </script>
 
 <template>
   <section class="root">
-    <h1 class="sr-only">
-      {{ title }}
-    </h1>
-
     <slot />
   </section>
 </template>

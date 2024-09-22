@@ -5,25 +5,28 @@ definePageMeta({
 
 useHead({ title: 'Home' })
 
-const store = useMyGameTicTacToeStore()
-const { setGameState, setPlayMode, setCurrentPlayer } = store
+const store = useGameTicTacToeStore()
+const { setGameState, setPlayMode, setCurrentPlayer, resetGame } = store
 const { isCurrentPlayerX, isCurrentPlayerO } = storeToRefs(store)
 
 const startPlay = (mode: PlayMode) => {
-  setPlayMode(mode)
+  resetGame()
   setGameState('playing')
+  setPlayMode(mode)
   navigateTo('/games/tic-tac-toe/in-game')
 }
 </script>
 
 <template>
   <div class="flex w-full max-w-[30rem] flex-col items-center justify-center gap-6 p-4">
+    <h1 class="sr-only">Tic-Tac-Toe - Home Screen</h1>
+
     <GamesTicTacToeIconGameLogo />
 
     <GamesTicTacToeShadow3dBox
       class="flex w-full flex-col items-center justify-center gap-4 rounded-2xl bg-[var(--color-cell-bg)] p-4"
     >
-      <h3 class="text-center text-lg font-bold uppercase text-[var(--color-neutral)]">Pick Your Mark</h3>
+      <h2 class="text-center text-lg font-bold uppercase text-[var(--color-neutral)]">Pick Your Mark</h2>
 
       <div class="mark-select-box" :class="{ 'after:translate-x-full': isCurrentPlayerO }">
         <button :class="{ 'text-[var(--color-bg)]': isCurrentPlayerX }" @click.prevent="setCurrentPlayer('X')">
@@ -51,7 +54,8 @@ const startPlay = (mode: PlayMode) => {
       <GamesTicTacToeShadow3dBox
         interactive
         :brightness="0.7"
-        class="h-14 rounded-2xl bg-[var(--color-primary)] text-lg font-bold uppercase"
+        class="h-14 rounded-2xl bg-[var(--color-primary)] text-lg font-bold uppercase disabled:pointer-events-none disabled:grayscale"
+        disabled
         @click.prevent="startPlay('vs-player')"
       >
         <span>New Game (vs Player)</span>
@@ -63,6 +67,8 @@ const startPlay = (mode: PlayMode) => {
 <style lang="postcss" scoped>
 .mark-select-box {
   @apply relative flex h-16 w-full rounded-xl bg-[var(--color-bg)] text-[var(--color-neutral)] transition-all;
+
+  box-shadow: rgb(0 0 0 / 0.3) 0 0 0.25rem 0.2rem inset;
 
   &::after {
     @apply absolute bottom-2 left-2 right-auto top-2 z-0 w-[calc(50%-0.5rem)] rounded-lg bg-[var(--color-neutral)] transition-all content-[''];

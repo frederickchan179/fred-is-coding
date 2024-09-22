@@ -10,19 +10,18 @@ const DEFAULT_WINNING_CONSECUTIVE = 3
 const DEFAULT_ROUND_RESULTS = {
   X: 0,
   O: 0,
-  tie: 0
+  ties: 0
 }
 
-export const useMyGameTicTacToeStore = defineStore('gameTicTacToe', () => {
+export const useGameTicTacToeStore = defineStore('gameTicTacToe', () => {
   const gameState = ref<GameState>('home')
 
   function setGameState(state: GameState) {
     gameState.value = state
-
-    if (state === 'home' || state === 'playing') resetGame()
   }
 
   const playMode = ref<PlayMode | null>(null)
+  const isPlayingVsAI = computed(() => playMode.value === 'vs-ai')
 
   function setPlayMode(mode: PlayMode | null) {
     playMode.value = mode
@@ -77,7 +76,7 @@ export const useMyGameTicTacToeStore = defineStore('gameTicTacToe', () => {
     const isBoardFull = board.value.every((row) => row.every((cell) => cell !== null))
 
     if (isBoardFull) {
-      roundResults.value.tie++
+      roundResults.value.ties++
       setGameState('end')
 
       return
@@ -90,7 +89,6 @@ export const useMyGameTicTacToeStore = defineStore('gameTicTacToe', () => {
     setPlayMode(null)
     setBoardSize(3)
     clearBoard()
-    setCurrentPlayer('X')
 
     roundWinner.value = null
     roundResults.value = DEFAULT_ROUND_RESULTS
@@ -100,6 +98,7 @@ export const useMyGameTicTacToeStore = defineStore('gameTicTacToe', () => {
     gameState,
     setGameState,
     playMode,
+    isPlayingVsAI,
     setPlayMode,
     currentPlayer,
     setCurrentPlayer,
