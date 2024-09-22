@@ -17,14 +17,3 @@
 .scale-leave-to {
   @apply scale-0;
 }
-
-/* Scale horizontally */
-.scale-hrz-enter-active,
-.scale-hrz-leave-active {
-  @apply origin-center transition-transform;
-}
-
-.scale-hrz-enter-from,
-.scale-hrz-leave-to {
-  @apply scale-x-0;
-}
