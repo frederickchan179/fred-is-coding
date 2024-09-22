@@ -27,7 +27,8 @@ export default defineNuxtConfig({
     'nuxt-lodash',
     '@morev/vue-transitions/nuxt',
     'floating-vue/nuxt',
-    'nuxt-snackbar'
+    'nuxt-snackbar',
+    'nuxt-viewport'
   ],
   imports: {
     dirs: ['./stores']
@@ -62,5 +63,23 @@ export default defineNuxtConfig({
     bottom: true,
     right: true,
     duration: 5000
+  },
+  viewport: {
+    breakpoints: {
+      xxs: 320,
+      xs: 375,
+      sm: 640,
+      md: 768,
+      lg: 990,
+      xl: 1280,
+      '2xl': 1440,
+      '3xl': 1600
+    },
+    defaultBreakpoints: {
+      desktop: 'lg',
+      mobile: 'xs',
+      tablet: 'md'
+    },
+    fallbackBreakpoint: 'lg'
   }
 })
