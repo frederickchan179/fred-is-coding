@@ -19,9 +19,13 @@ const { board, boardSize } = storeToRefs(store)
           :class="{ 'is-last-move': isLastMove(rowIndex, colIndex) }"
           @click.prevent="makeMove(rowIndex, colIndex)"
         >
-          <GamesTicTacToeIconMarkX v-if="col === 'X'" class="block !h-1/2 !w-1/2 text-[var(--color-primary)]" />
-          <GamesTicTacToeIconMarkO v-else-if="col === 'O'" class="block !h-1/2 !w-1/2 text-[var(--color-secondary)]" />
-          <span v-else></span>
+          <Transition name="scale">
+            <GamesTicTacToeIconMarkX v-if="col === 'X'" class="block !h-1/2 !w-1/2 text-[var(--color-primary)]" />
+            <GamesTicTacToeIconMarkO
+              v-else-if="col === 'O'"
+              class="block !h-1/2 !w-1/2 text-[var(--color-secondary)]"
+            />
+          </Transition>
         </GamesTicTacToeShadow3dBox>
       </template>
     </template>

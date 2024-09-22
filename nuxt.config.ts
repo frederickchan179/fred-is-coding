@@ -25,7 +25,6 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     '@hebilicious/vue-query-nuxt',
     'nuxt-lodash',
-    '@morev/vue-transitions/nuxt',
     'floating-vue/nuxt',
     'nuxt-snackbar',
     'nuxt-viewport'
@@ -33,7 +32,7 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['./stores']
   },
-  css: ['./assets/styles/app.css'],
+  css: ['./assets/styles/app.css', './assets/styles/transitions.css'],
   runtimeConfig: {
     public: {
       githubApiToken: ''

@@ -1,0 +1,30 @@
+/* Default fade */
+.v-enter-active,
+.v-leave-active {
+  @apply transition-opacity;
+}
+.v-enter-from,
+.v-leave-to {
+  @apply opacity-0;
+}
+
+/* Scale from origin */
+.scale-enter-active,
+.scale-leave-active {
+  @apply origin-center transition-transform;
+}
+.scale-enter-from,
+.scale-leave-to {
+  @apply scale-0;
+}
+
+/* Scale horizontally */
+.scale-hrz-enter-active,
+.scale-hrz-leave-active {
+  @apply origin-center transition-transform;
+}
+
+.scale-hrz-enter-from,
+.scale-hrz-leave-to {
+  @apply scale-x-0;
+}

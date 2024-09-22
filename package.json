@@ -20,7 +20,6 @@
   },
   "dependencies": {
     "@hebilicious/vue-query-nuxt": "^0.3.0",
-    "@morev/vue-transitions": "^3.0.2",
     "@nuxt/icon": "^1.5.1",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.12.1",
