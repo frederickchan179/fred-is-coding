@@ -6,6 +6,8 @@ export type PlayerMark = 'X' | 'O'
 export type Board = (PlayerMark | null)[][]
 export type Cell = { row: number; col: number }
 
+const MIN_BOARD_SIZE = 3
+const MAX_BOARD_SIZE = 15
 const DEFAULT_WINNING_CONSECUTIVE = 3
 const DEFAULT_ROUND_RESULTS = {
   X: 0,
@@ -36,12 +38,12 @@ export const useGameTicTacToeStore = defineStore('gameTicTacToe', () => {
   const isCurrentPlayerX = computed(() => currentPlayer.value === 'X')
   const isCurrentPlayerO = computed(() => currentPlayer.value === 'O')
 
-  const boardSize = ref(3)
+  const boardSize = ref(MIN_BOARD_SIZE)
   const board = ref(generateBoard(boardSize.value, boardSize.value))
   const winningConsecutive = computed(() => Math.min(boardSize.value, DEFAULT_WINNING_CONSECUTIVE))
 
   function setBoardSize(size: number) {
-    boardSize.value = size
+    boardSize.value = Math.min(Math.max(size, MIN_BOARD_SIZE), MAX_BOARD_SIZE)
   }
 
   function clearBoard() {
@@ -87,9 +89,7 @@ export const useGameTicTacToeStore = defineStore('gameTicTacToe', () => {
 
   function resetGame() {
     setPlayMode(null)
-    setBoardSize(3)
     clearBoard()
-
     roundWinner.value = null
     roundResults.value = DEFAULT_ROUND_RESULTS
   }
