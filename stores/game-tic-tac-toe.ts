@@ -8,7 +8,7 @@ export type Cell = { row: number; col: number }
 
 const MIN_BOARD_SIZE = 3
 const MAX_BOARD_SIZE = 15
-const DEFAULT_WINNING_CONSECUTIVE = 3
+const DEFAULT_WINNING_CONSECUTIVE = 5
 const DEFAULT_ROUND_RESULTS = {
   X: 0,
   O: 0,
@@ -60,12 +60,14 @@ export const useGameTicTacToeStore = defineStore('gameTicTacToe', () => {
   const roundWinner = ref<PlayerMark | null>(null)
   const roundResults = ref(DEFAULT_ROUND_RESULTS)
 
-  function makeMove(mark: PlayerMark, cell: Cell) {
-    if (board.value[cell.row][cell.col]) return
+  function makeMove(row: number, col: number) {
+    if (board.value[row][col]) return
 
-    board.value[cell.row][cell.col] = mark
+    const mark = currentTurn.value
 
-    const isCurrentPlayerWin = checkWinnerOnMove(board.value, mark, cell, winningConsecutive.value)
+    board.value[row][col] = mark
+
+    const isCurrentPlayerWin = checkWinnerOnMove(board.value, mark, row, col, winningConsecutive.value)
 
     if (isCurrentPlayerWin) {
       roundWinner.value = mark
@@ -123,8 +125,13 @@ function generateBoard(row: number, col: number) {
   return Array.from({ length: row }, () => Array.from({ length: col }, () => null)) as Board
 }
 
-function checkWinnerOnMove(board: Board, player: PlayerMark, cell: Cell, winningConsecutive: number): boolean {
-  const { row, col } = cell
+function checkWinnerOnMove(
+  board: Board,
+  player: PlayerMark,
+  row: number,
+  col: number,
+  winningConsecutive: number
+): boolean {
   const rowLength = board.length
   const colLength = board[0].length
 
