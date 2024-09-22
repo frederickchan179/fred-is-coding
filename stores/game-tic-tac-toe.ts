@@ -67,7 +67,7 @@ export const useGameTicTacToeStore = defineStore('gameTicTacToe', () => {
   }
 
   function makeMove(row: number, col: number) {
-    if (board.value[row][col]) return
+    if (board.value[row][col] || gameState.value === 'end') return
 
     const mark = currentTurn.value
 
@@ -100,7 +100,7 @@ export const useGameTicTacToeStore = defineStore('gameTicTacToe', () => {
     setPlayMode(null)
     clearBoard()
     roundWinner.value = null
-    roundResults.value = DEFAULT_ROUND_RESULTS
+    roundResults.value.X = roundResults.value.O = roundResults.value.ties = 0
     lastMove.value = null
   }
 
