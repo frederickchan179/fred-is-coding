@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-export type GameState = 'home' | 'playing' | 'paused' | 'end'
+export type GameState = 'home' | 'playing' | 'paused' | 'pre-end' | 'end'
 export type PlayMode = 'vs-ai' | 'vs-player'
 export type PlayerMark = 'X' | 'O'
 export type Board = (PlayerMark | null)[][]
@@ -20,6 +20,14 @@ export const useGameTicTacToeStore = defineStore('gameTicTacToe', () => {
 
   function setGameState(state: GameState) {
     gameState.value = state
+  }
+
+  function transitionToEndGame() {
+    gameState.value = 'pre-end' // For result animation
+
+    setTimeout(() => {
+      gameState.value = 'end'
+    }, 1000)
   }
 
   const playMode = ref<PlayMode | null>(null)
@@ -54,6 +62,7 @@ export const useGameTicTacToeStore = defineStore('gameTicTacToe', () => {
   }
 
   const roundWinner = ref<PlayerMark | null>(null)
+  const roundWinningCells = ref<Cell[]>([])
   const roundResults = ref(DEFAULT_ROUND_RESULTS)
 
   const lastMove = ref<Cell | null>(null)
@@ -70,12 +79,13 @@ export const useGameTicTacToeStore = defineStore('gameTicTacToe', () => {
     board.value[row][col] = mark
     lastMove.value = { row, col }
 
-    const isCurrentPlayerWin = checkWinnerOnMove(board.value, mark, row, col, winningConsecutive.value)
+    const { isWinningMove, winningCells } = checkMoveForWin(board.value, mark, row, col, winningConsecutive.value)
 
-    if (isCurrentPlayerWin) {
+    if (isWinningMove) {
       roundWinner.value = mark
+      roundWinningCells.value = winningCells
       roundResults.value[mark]++
-      setGameState('end')
+      transitionToEndGame()
 
       return
     }
@@ -84,7 +94,7 @@ export const useGameTicTacToeStore = defineStore('gameTicTacToe', () => {
 
     if (isBoardFull) {
       roundResults.value.ties++
-      setGameState('end')
+      transitionToEndGame()
 
       return
     }
@@ -95,6 +105,7 @@ export const useGameTicTacToeStore = defineStore('gameTicTacToe', () => {
   function clearBoard() {
     board.value = generateBoard(boardSize.value, boardSize.value)
     roundWinner.value = null
+    roundWinningCells.value = []
     lastMove.value = null
   }
 
@@ -123,6 +134,7 @@ export const useGameTicTacToeStore = defineStore('gameTicTacToe', () => {
     switchTurn,
     isCurrentPlayerTurn,
     roundWinner,
+    roundWinningCells,
     roundResults,
     lastMove,
     isLastMove,
@@ -135,46 +147,57 @@ function generateBoard(row: number, col: number) {
   return Array.from({ length: row }, () => Array.from({ length: col }, () => null)) as Board
 }
 
-function checkWinnerOnMove(
+function checkMoveForWin(
   board: Board,
   player: PlayerMark,
   row: number,
   col: number,
   winningConsecutive: number
-): boolean {
+): { isWinningMove: boolean; winningCells: Cell[] } {
   const rowLength = board.length
   const colLength = board[0].length
 
-  // Helper function to count consecutive marks in a given direction
-  function countConsecutive(dx: number, dy: number): number {
-    let count = 0
+  // Helper function to find consecutive marks in a given direction and return the cells
+  function findConsecutiveCells(rowStep: number, colStep: number): Cell[] {
+    const consecutiveCells: Cell[] = []
     let x = row
     let y = col
 
     // Move in the positive direction (right/down)
     while (x >= 0 && x < rowLength && y >= 0 && y < colLength && board[x][y] === player) {
-      count++
-      x += dx
-      y += dy
+      consecutiveCells.push({ row: x, col: y })
+      x += rowStep
+      y += colStep
     }
 
     // Reset to original position and move in the negative direction (left/up)
-    x = row - dx
-    y = col - dy
+    x = row - rowStep
+    y = col - colStep
 
     while (x >= 0 && x < rowLength && y >= 0 && y < colLength && board[x][y] === player) {
-      count++
-      x -= dx
-      y -= dy
+      consecutiveCells.push({ row: x, col: y })
+      x -= rowStep
+      y -= colStep
     }
 
-    return count
+    return consecutiveCells
   }
 
-  if (countConsecutive(0, 1) >= winningConsecutive) return true // horizontal
-  if (countConsecutive(1, 0) >= winningConsecutive) return true // vertical
-  if (countConsecutive(1, 1) >= winningConsecutive) return true // diagonal
-  if (countConsecutive(1, -1) >= winningConsecutive) return true // anti-diagonal
+  // Check in all four directions
+  const directionVectors = [
+    { rowStep: 0, colStep: 1 }, // horizontal
+    { rowStep: 1, colStep: 0 }, // vertical
+    { rowStep: 1, colStep: 1 }, // diagonal
+    { rowStep: 1, colStep: -1 } // anti-diagonal
+  ]
 
-  return false
+  for (const { rowStep, colStep } of directionVectors) {
+    const consecutiveCells = findConsecutiveCells(rowStep, colStep)
+
+    if (consecutiveCells.length >= winningConsecutive) {
+      return { isWinningMove: true, winningCells: consecutiveCells }
+    }
+  }
+
+  return { isWinningMove: false, winningCells: [] }
 }

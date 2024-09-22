@@ -1,7 +1,13 @@
 <script lang="ts" setup>
 const store = useGameTicTacToeStore()
 const { isLastMove, makeMove } = store
-const { board, boardSize } = storeToRefs(store)
+const { gameState, board, boardSize, roundWinningCells } = storeToRefs(store)
+
+const isInEndStates = computed(() => gameState.value === 'pre-end' || gameState.value === 'end')
+
+function isWinningCell(row: number, col: number) {
+  return roundWinningCells.value.some((cell) => cell.row === row && cell.col === col)
+}
 </script>
 
 <template>
@@ -15,8 +21,13 @@ const { board, boardSize } = storeToRefs(store)
       <template v-for="(col, colIndex) in row" :key="colIndex">
         <GamesTicTacToeShadow3dBox
           interactive
-          class="flex aspect-square items-center justify-center rounded-xl bg-[var(--color-cell-bg)]"
-          :class="{ 'is-last-move': isLastMove(rowIndex, colIndex) }"
+          class="board-cell"
+          :class="{
+            'is-last-move': !isInEndStates && isLastMove(rowIndex, colIndex),
+            'is-winning-cell': isInEndStates && isWinningCell(rowIndex, colIndex),
+            [`is-${col?.toLowerCase()}-cell`]: !!col
+          }"
+          :disabled="isInEndStates && !isWinningCell(rowIndex, colIndex)"
           @click="makeMove(rowIndex, colIndex)"
         >
           <Transition name="scale">
@@ -33,7 +44,25 @@ const { board, boardSize } = storeToRefs(store)
 </template>
 
 <style lang="postcss" scoped>
-.is-last-move::before {
-  @apply border border-solid outline-[var(--color-neutral)];
+.board-cell {
+  @apply flex aspect-square items-center justify-center rounded-xl bg-[var(--color-cell-bg)];
+
+  &.is-last-move::before {
+    @apply border border-solid outline-[var(--color-neutral)];
+  }
+
+  &.is-winning-cell {
+    &.is-x-cell {
+      @apply bg-[var(--color-primary)];
+    }
+
+    &.is-o-cell {
+      @apply bg-[var(--color-secondary)];
+    }
+
+    svg {
+      @apply !text-[var(--color-cell-bg)];
+    }
+  }
 }
 </style>

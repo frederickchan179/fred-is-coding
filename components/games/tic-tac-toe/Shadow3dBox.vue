@@ -4,6 +4,8 @@ defineProps<{
   brightness?: number
   innerClass?: string
   small?: boolean
+  forceActive?: boolean
+  disabled?: boolean
 }>()
 </script>
 
@@ -11,7 +13,7 @@ defineProps<{
   <component
     :is="interactive ? 'button' : 'div'"
     class="shadow-3d-box"
-    :class="{ 'shadow-3d-box--interactive': interactive }"
+    :class="{ 'shadow-3d-box--interactive': interactive, 'force-active': forceActive, disabled }"
     :style="{ '--shadow-brightness': brightness ?? 0.6, '--shadow-size': small ? '0.25rem' : '0.5rem' }"
   >
     <slot />
@@ -29,12 +31,18 @@ defineProps<{
   &::after {
     @apply absolute left-0 right-0 top-[var(--shadow-size)] z-[-2] block h-full rounded-[inherit] bg-inherit brightness-[var(--shadow-brightness)] transition-all content-[''];
   }
+
+  &.disabled {
+    @apply pointer-events-none grayscale;
+  }
 }
 
 .shadow-3d-box--interactive {
   @apply cursor-pointer;
 
-  &:active {
+  &:active,
+  &.force-active,
+  &.disabled {
     @apply translate-y-[var(--shadow-size)];
 
     &::after {
