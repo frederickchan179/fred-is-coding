@@ -32,10 +32,10 @@ const startPlay = (mode: PlayMode) => {
       </div>
 
       <div class="mark-select-box" :class="{ 'after:translate-x-full': isCurrentPlayerO }">
-        <button :class="{ 'text-[var(--color-bg)]': isCurrentPlayerX }" @click.prevent="setCurrentPlayer('X')">
+        <button :class="{ 'text-[var(--color-bg)]': isCurrentPlayerX }" @click="setCurrentPlayer('X')">
           <GamesTicTacToeIconMarkX class="h-7 w-7" />
         </button>
-        <button :class="{ 'text-[var(--color-bg)]': isCurrentPlayerO }" @click.prevent="setCurrentPlayer('O')">
+        <button :class="{ 'text-[var(--color-bg)]': isCurrentPlayerO }" @click="setCurrentPlayer('O')">
           <GamesTicTacToeIconMarkO class="h-7 w-7" />
         </button>
       </div>
@@ -50,7 +50,7 @@ const startPlay = (mode: PlayMode) => {
             :brightness="0.7"
             small
             class="aspect-square rounded-lg bg-[var(--color-neutral)] p-2"
-            @click.prevent="setBoardSize(boardSize - 1)"
+            @click="setBoardSize(boardSize - 1)"
           >
             <Icon name="ic:twotone-minus" class="block h-6 w-6 min-w-6 text-[var(--color-text)]" />
           </GamesTicTacToeShadow3dBox>
@@ -68,7 +68,7 @@ const startPlay = (mode: PlayMode) => {
             :brightness="0.7"
             small
             class="aspect-square rounded-lg bg-[var(--color-neutral)] p-2"
-            @click.prevent="setBoardSize(boardSize + 1)"
+            @click="setBoardSize(boardSize + 1)"
           >
             <Icon name="ic:twotone-plus" class="block h-6 w-6 min-w-6 text-[var(--color-text)]" />
           </GamesTicTacToeShadow3dBox>
@@ -80,17 +80,17 @@ const startPlay = (mode: PlayMode) => {
       <GamesTicTacToeShadow3dBox
         interactive
         :brightness="0.7"
-        class="h-14 rounded-2xl bg-[var(--color-secondary)] text-lg font-bold uppercase"
-        @click.prevent="startPlay('vs-ai')"
+        class="h-14 rounded-2xl bg-[var(--color-secondary)] px-4 text-lg font-bold uppercase"
+        @click="startPlay('vs-ai')"
       >
         <span>New Game (vs AI)</span>
       </GamesTicTacToeShadow3dBox>
       <GamesTicTacToeShadow3dBox
         interactive
         :brightness="0.7"
-        class="h-14 rounded-2xl bg-[var(--color-primary)] text-lg font-bold uppercase disabled:pointer-events-none disabled:grayscale"
+        class="h-14 rounded-2xl bg-[var(--color-primary)] px-4 text-lg font-bold uppercase disabled:pointer-events-none disabled:grayscale"
         disabled
-        @click.prevent="startPlay('vs-player')"
+        @click="startPlay('vs-player')"
       >
         <span>New Game (vs Player)</span>
       </GamesTicTacToeShadow3dBox>

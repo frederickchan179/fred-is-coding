@@ -17,7 +17,7 @@ const { board, boardSize } = storeToRefs(store)
           interactive
           class="flex aspect-square items-center justify-center rounded-xl bg-[var(--color-cell-bg)]"
           :class="{ 'is-last-move': isLastMove(rowIndex, colIndex) }"
-          @click.prevent="makeMove(rowIndex, colIndex)"
+          @click="makeMove(rowIndex, colIndex)"
         >
           <Transition name="scale">
             <GamesTicTacToeIconMarkX v-if="col === 'X'" class="block !h-1/2 !w-1/2 text-[var(--color-primary)]" />
