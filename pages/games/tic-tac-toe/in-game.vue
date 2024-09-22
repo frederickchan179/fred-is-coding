@@ -71,5 +71,7 @@ const footerInfos = computed(() => {
         <span class="text-2xl font-bold">{{ info.value }}</span>
       </div>
     </div>
+
+    <GamesTicTacToeEndPopup />
   </div>
 </template>

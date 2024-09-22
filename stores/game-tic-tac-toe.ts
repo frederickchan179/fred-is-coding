@@ -46,10 +46,6 @@ export const useGameTicTacToeStore = defineStore('gameTicTacToe', () => {
     boardSize.value = Math.min(Math.max(size, MIN_BOARD_SIZE), MAX_BOARD_SIZE)
   }
 
-  function clearBoard() {
-    board.value = generateBoard(boardSize.value, boardSize.value)
-  }
-
   const currentTurn = ref<PlayerMark>('X')
   const isCurrentPlayerTurn = computed(() => currentPlayer.value === currentTurn.value)
 
@@ -96,12 +92,16 @@ export const useGameTicTacToeStore = defineStore('gameTicTacToe', () => {
     switchTurn()
   }
 
+  function clearBoard() {
+    board.value = generateBoard(boardSize.value, boardSize.value)
+    roundWinner.value = null
+    lastMove.value = null
+  }
+
   function resetGame() {
     setPlayMode(null)
     clearBoard()
-    roundWinner.value = null
     roundResults.value.X = roundResults.value.O = roundResults.value.ties = 0
-    lastMove.value = null
   }
 
   return {
