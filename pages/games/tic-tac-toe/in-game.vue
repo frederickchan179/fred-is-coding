@@ -10,8 +10,8 @@ const { isPlayingVsAI, isCurrentPlayerX, isCurrentPlayerO, currentTurn, roundRes
 
 const footerInfos = computed(() => {
   const { X: xWins, O: oWins, ties } = roundResults.value
-  const xIdentity = isCurrentPlayerX.value ? ' (You)' : isPlayingVsAI.value ? ' (AI)' : '(Player 1)'
-  const oIdentity = isCurrentPlayerO.value ? ' (You)' : isPlayingVsAI.value ? ' (AI)' : '(Player 2)'
+  const xIdentity = isCurrentPlayerX.value ? ' (You)' : isPlayingVsAI.value ? ' (AI)' : '(P1)'
+  const oIdentity = isCurrentPlayerO.value ? ' (You)' : isPlayingVsAI.value ? ' (AI)' : '(P2)'
 
   return [
     {
