@@ -60,12 +60,19 @@ export const useGameTicTacToeStore = defineStore('gameTicTacToe', () => {
   const roundWinner = ref<PlayerMark | null>(null)
   const roundResults = ref(DEFAULT_ROUND_RESULTS)
 
+  const lastMove = ref<Cell | null>(null)
+
+  function isLastMove(row: number, col: number) {
+    return lastMove.value?.row === row && lastMove.value?.col === col
+  }
+
   function makeMove(row: number, col: number) {
     if (board.value[row][col]) return
 
     const mark = currentTurn.value
 
     board.value[row][col] = mark
+    lastMove.value = { row, col }
 
     const isCurrentPlayerWin = checkWinnerOnMove(board.value, mark, row, col, winningConsecutive.value)
 
@@ -94,6 +101,7 @@ export const useGameTicTacToeStore = defineStore('gameTicTacToe', () => {
     clearBoard()
     roundWinner.value = null
     roundResults.value = DEFAULT_ROUND_RESULTS
+    lastMove.value = null
   }
 
   return {
@@ -116,6 +124,8 @@ export const useGameTicTacToeStore = defineStore('gameTicTacToe', () => {
     isCurrentPlayerTurn,
     roundWinner,
     roundResults,
+    lastMove,
+    isLastMove,
     makeMove,
     resetGame
   }

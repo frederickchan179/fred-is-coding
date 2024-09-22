@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 const store = useGameTicTacToeStore()
-const { makeMove } = store
+const { isLastMove, makeMove } = store
 const { board, boardSize } = storeToRefs(store)
 </script>
 
@@ -16,6 +16,7 @@ const { board, boardSize } = storeToRefs(store)
         <GamesTicTacToeShadow3dBox
           interactive
           class="flex aspect-square items-center justify-center rounded-xl bg-[var(--color-cell-bg)]"
+          :class="{ 'is-last-move': isLastMove(rowIndex, colIndex) }"
           @click.prevent="makeMove(rowIndex, colIndex)"
         >
           <GamesTicTacToeIconMarkX v-if="col === 'X'" class="block !h-1/2 !w-1/2 text-[var(--color-primary)]" />
@@ -27,4 +28,8 @@ const { board, boardSize } = storeToRefs(store)
   </div>
 </template>
 
-<style></style>
+<style lang="postcss" scoped>
+.is-last-move::before {
+  @apply border border-solid outline-[var(--color-neutral)];
+}
+</style>

@@ -23,7 +23,7 @@ defineProps<{
   @apply relative z-[1] mb-[var(--shadow-size)] transition-all;
 
   &::before {
-    @apply absolute inset-0 z-[-1] rounded-[inherit] bg-inherit content-[''];
+    @apply absolute inset-0 z-[-1] rounded-[inherit] bg-inherit transition-all content-[''];
   }
 
   &::after {
