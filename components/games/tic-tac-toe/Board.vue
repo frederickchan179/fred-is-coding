@@ -8,7 +8,7 @@ const { board, boardSize } = storeToRefs(store)
   <div
     class="mx-auto grid w-max max-w-full flex-1 gap-4 overflow-scroll p-4"
     :style="{
-      gridTemplateColumns: `repeat(${boardSize}, minmax(60px, ${26 / 3}rem))`
+      gridTemplateColumns: `repeat(${boardSize}, minmax(60px, calc(26rem / 3)))`
     }"
   >
     <template v-for="(row, rowIndex) in board" :key="rowIndex">
